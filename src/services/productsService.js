@@ -11,7 +11,15 @@ const getById = async (id) => {
   return product[0];
 };
 
+const cadastro = async (name) => {
+  const product = await productsModel.getByName(name);
+  const newProduct = await productsModel.getById(product);
+  console.log(newProduct);
+  return newProduct;
+};
+
 module.exports = {
   getAll,
   getById,
+  cadastro,
 };

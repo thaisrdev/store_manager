@@ -18,7 +18,14 @@ const getById = async (req, res) => {
   }
 };
 
+const cadastro = async (req, res) => {
+  const { body: { name } } = req;
+  const product = await productsService.cadastro(name);
+  return res.status(201).json(product);
+};
+
 module.exports = {
   getAll,
   getById,
+  cadastro,
 };
