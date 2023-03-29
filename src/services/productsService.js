@@ -25,9 +25,17 @@ const atualizar = async (id, name) => {
   return { type: null, message: updated };
 };
 
+const deletar = async (id) => {
+  const [product] = await productsModel.getById(id);
+  if (!product) return { type: 404, message: 'Product not found' };
+  const deleted = await productsModel.deletar(id);
+  return deleted;
+};
+
 module.exports = {
   getAll,
   getById,
   cadastro,
   atualizar,
+  deletar,
 };
