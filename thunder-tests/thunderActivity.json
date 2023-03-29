@@ -45,5 +45,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "bd73365c-0fed-4aa7-b575-7795de1dd0b9",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products",
+    "url": "localhost:3001/products",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-03-29T13:55:19.461Z",
+    "modified": "2023-03-29T13:55:19.461Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -18,8 +18,16 @@ const cadastro = async (name) => {
   return newProduct;
 };
 
+const atualizar = async (id, name) => {
+  await productsModel.atualizar(id, name);
+  const [updated] = await productsModel.getById(id);
+  if (!updated) return { type: 404, message: 'Product not found' };
+  return { type: null, message: updated };
+};
+
 module.exports = {
   getAll,
   getById,
   cadastro,
+  atualizar,
 };

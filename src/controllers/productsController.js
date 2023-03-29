@@ -24,8 +24,19 @@ const cadastro = async (req, res) => {
   return res.status(201).json(product);
 };
 
+const atualizar = async (req, res) => {
+  const {
+    body: { name },
+    params: { id },
+  } = req;
+  const { type, message } = await productsService.atualizar(id, name);
+  if (type) return res.status(404).json({ message });
+  return res.status(200).json(message);
+};
+
 module.exports = {
   getAll,
   getById,
   cadastro,
+  atualizar,
 };
