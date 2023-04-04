@@ -1,29 +1,29 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const productsService = require('../../../src/services/productsService');
-const { productsModel } = require('../../../src/models/productsModel');
+// const { productsModel } = require('../../../src/models/productsModel');
 
-const todosProdutos = [
-  {
-    id: 1,
-    name: "Martelo de Thor",
-  },
-  {
-    id: 2,
-    name: "Traje de encolhimento",
-  },
-  {
-    id: 3,
-    name: "Escudo do Capitão América",
-  },
-];
+// const todosProdutos = [
+//   {
+//     id: 1,
+//     name: 'Martelo de Thor',
+//   },
+//   {
+//     id: 2,
+//     name: 'Traje de encolhimento',
+//   },
+//   {
+//     id: 3,
+//     name: 'Escudo do Capitão América',
+//   },
+// ];
 
 
-const idValido = 1;
+// const idValido = 1;
 
-const nomeInvalido = "oi";
+const nomeInvalido = 'oi';
 
-const nomeValido = "Tardis do Doctor";
+const nomeValido = 'Tardis do Doctor';
 
 
 describe('Testa a camada Service', function () {

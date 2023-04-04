@@ -1,57 +1,43 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const productsModel = require('../../../src/models/productsModel');
-
-const todosProdutos = [
-  {
-    id: 1,
-    name: "Martelo de Thor",
-  },
-  {
-    id: 2,
-    name: "Traje de encolhimento",
-  },
-  {
-    id: 3,
-    name: "Escudo do Capitão América",
-  },
-];
-
-const novoProduto = {
-  id: 4,
-  name: "Tardis do Doctor",
-};
+const { connection } = require('../../../src/models/connection');
+const { todosProdutos, newProduct } = require('./productsModel.mock');
 
 describe('Testa a camada Model', function () {
-  
-  // it('Testa a função getAll', async function () {
 
-  //   const result = await productsModel.getAll();
-  //   expect(result).to.be.deep.equal(todosProdutos);
-  // });
+  it('Testa a função getAll', async function () {
+
+    sinon.stub(connection,'execute').resolves([todosProdutos]);
+    const result = await productsModel.getAll();
+    expect(result).to.equal(todosProdutos);
+  });
 
   it('Testa a função getById', async function () {
 
+    sinon.stub(connection,'execute').resolves([todosProdutos]);
     const result = await productsModel.getById(1);
-    expect(result.length).to.be.deep.equal(0);
+    expect(result).to.equal(todosProdutos);
   });
 
-  // it('Testa a função cadastro', async function () {
+  it('Testa a função cadastro', async function () {
 
-  //   const result = await productsModel.cadastro(novoProduto);
-  //   expect(result).to.equal();
-  // });
+    sinon.stub(connection, 'execute').resolves([{ insertId: 5 }]);
+    const result = await productsModel.cadastro(newProduct);
+    expect(result).to.equal(5);
+  });
 
   it('Testa a função atualizar', async function () {
-
+    sinon.stub(connection, 'execute').resolves([{ name: 'Tardis do Doctor' }]);
     const result = await productsModel.atualizar(1, 'Tardis do Doctor');
-    expect(result.name).to.equal();
+    expect(result).to.deep.equal([{ name: "Tardis do Doctor" }]);
   });
 
-  it('Testa a função deletar', async function () {
+  it('Deletando um produto já existente', async function () {
 
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
     const result = await productsModel.deletar(1);
-    expect(result.name).to.equal();
+    expect(result).to.deep.equal([{ insertId: 1 }]);
   });
 
   afterEach(function () {
