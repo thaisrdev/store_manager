@@ -12,7 +12,7 @@ const getById = async (id) => {
 };
 
 const cadastro = async (name) => {
-  const product = await productsModel.getByName(name);
+  const product = await productsModel.cadastro(name);
   const [newProduct] = await productsModel.getById(product);
   console.log(newProduct);
   return newProduct;
