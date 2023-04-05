@@ -1,19 +1,29 @@
-const salesService = require('../services/salesService');
+const SaleService = require('../services/salesService');
 
-const criarVenda = async (req, res) => {
-  const itemsSold = req.body;
-  const { type, message } = await salesService.criarVenda(itemsSold);
-  if (type) return res.status(404).json({ message });
-  res.status(201).json(message);
+const getAll = async (_req, res, next) => {
+  try {
+    const result = await SaleService.getAll();
+
+    if (!result) {
+      return res.status(404).json({ message: 'Nenhuma sale retornada' });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const listaVenda = async (_req, res) => {
-  const { type, message } = await salesService.getAll();
-  if (type) return res.status(404).json(message);
-  res.status(200).json(message);
+const create = async (req, res, next) => {
+  try {
+    const result = await SaleService.create(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
-  criarVenda,
-  listaVenda,
+  getAll,
+  create,
 };
