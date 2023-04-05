@@ -42,45 +42,50 @@ describe('Testa a camada Service', function () {
   it('Testa a função cadastro', async function () {
 
     sinon.stub(productsModel, 'cadastro').resolves(nomeValido);
+    sinon.stub(productsModel, 'getById').resolves([todosProdutos[0]]);
     const result = await productsService.cadastro(nomeValido);
-    expect(result).to.equal();
+    expect(result.id).to.equal(1);
     });
 
   it('Testa a função atualizar', async function () {
           
     sinon.stub(productsModel, 'atualizar').resolves(1, nomeValido);
+    sinon.stub(productsModel, 'getById').resolves([todosProdutos[0]]);
 
     const result = await productsService.atualizar(1, nomeValido);
 
-    expect(result.type).to.deep.equal(404);
+    expect(result.type).to.deep.equal(null);
     });
 
   it('Testa nome inválido na função atualizar', async function () {
-      
+    
+    sinon.stub(productsModel, 'atualizar').resolves(1, nomeValido);
+    sinon.stub(productsModel, 'getById').resolves([null]);
       const result = await productsService.atualizar(1, nomeInvalido);
       expect(result.message).to.equal('Product not found');
     });
 
-  it('Testa id inválido na função atualizar', async function () {
-      
-      const result = await productsService.atualizar(7, nomeValido);
-      expect(result.message).to.equal('Product not found');
-    });
-
   it('Testa a função deletar', async function () {
+
+    sinon.stub(productsModel, 'getById').resolves([todosProdutos[0]]);
+    sinon.stub(productsModel, 'deletar').resolves()
       
       const result = await productsService.deletar(1);
-      expect(result.message).to.deep.equal('Product not found');
+      expect(result).to.deep.equal();
     });
 
   it('Testa id inválido na função deletar', async function () {
+
+    sinon.stub(productsModel, 'getById').resolves([null]);
+    sinon.stub(productsModel, 'deletar').resolves();
       
       const result = await productsService.deletar(7);
       expect(result.message).to.equal('Product not found');
     });
+
+     afterEach(function () {
+       sinon.restore();
+     });
   });
 
-   afterEach(function () {
-    sinon.restore();
-  });
 
