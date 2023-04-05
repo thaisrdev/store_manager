@@ -119,6 +119,22 @@ describe('Testa a camada Controller', function () {
       expect(res.status).to.have.been.calledWith(204);
       expect(res.json).to.have.been.calledWith();
     });
+  
+      it('Testa a função deletar', async function () {
+        const res = {};
+        const req = { params: { id: 1 } };
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+        sinon
+          .stub(productsService, 'deletar')
+          .resolves({ type: null, message: '' });
+
+        await productsController.deletar(req, res);
+
+        expect(res.status).to.have.been.calledWith(204);
+        expect(res.json).to.have.been.calledWith();
+      });
   });
 
   afterEach(function () {

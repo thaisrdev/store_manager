@@ -27,6 +27,13 @@ describe('Testa a camada Model', function () {
     expect(result).to.equal(5);
   });
 
+  it('Testa a função cadatros', async function () {
+      
+      sinon.stub(connection, 'execute').resolves([{ insertId: 6 }]);
+      const result = await productsModel.cadastro(datamock.productUpdateBody);
+      expect(result).to.equal(6);
+    });
+
   it('Testa a função atualizar', async function () {
     sinon.stub(connection, 'execute').resolves(datamock.productUpdateBody);
     const result = await productsModel.atualizar(1, 'Machado do Thor Stormbreaker');
